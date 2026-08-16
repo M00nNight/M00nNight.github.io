@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zamil Khan — Lead Frontend Developer</title>
+<meta name="description" content="Zamil Khan — Lead Frontend Developer. React, TypeScript, Tailwind CSS. Gurgaon, India · open to EU relocation or remote." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%9B%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ───────────────────────── gruvbox theme ───────────────────────── */
+:root{
+  --bg0h:#1d2021; --bg0:#282828; --bg1:#32302f; --bg2:#3c3836; --bg3:#504945;
+  --fg:#ebdbb2; --dim:#bdae93; --faint:#928374;
+  --red:#fb4934; --red-dim:#cc241d; --green:#b8bb26; --green-dim:#98971a;
+  --yellow:#fabd2f; --yellow-dim:#d79921; --blue:#83a598; --blue-dim:#458588;
+  --purple:#d3869b; --aqua:#8ec07c; --aqua-dim:#689d6a; --orange:#fe8019; --orange-dim:#d65d0e;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg0h);color:var(--fg);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding:34px 0 24px 52px;
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(1000px 520px at 88% -12%,rgba(215,153,33,.08),transparent 62%),
+  radial-gradient(760px 460px at -8% 28%,rgba(104,157,106,.06),transparent 60%),
+  radial-gradient(900px 600px at 50% 118%,rgba(69,133,136,.05),transparent 60%),
+  linear-gradient(rgba(60,56,54,.22) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(60,56,54,.22) 1px,transparent 1px);
+  background-size:auto,auto,auto,34px 34px,34px 34px}
+::selection{background:var(--yellow);color:var(--bg0h)}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;border-radius:2px}
+*{scrollbar-width:thin;scrollbar-color:var(--bg3) var(--bg0h)}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-track{background:var(--bg0h)}
+*::-webkit-scrollbar-thumb{background:var(--bg3);border:2px solid var(--bg0h);border-radius:8px}
+*::-webkit-scrollbar-thumb:hover{background:var(--faint)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img,svg{display:block}
+.mono{font-family:var(--mono)}
+
+/* ───────────────────────── IDE chrome ───────────────────────── */
+.titlebar{position:fixed;top:0;left:0;right:0;height:34px;z-index:50;display:flex;align-items:center;gap:12px;
+  background:var(--bg0);border-bottom:1px solid var(--bg2);padding:0 14px}
+.traffic{display:flex;gap:7px}
+.tl{width:11px;height:11px;border-radius:50%;transition:transform .15s}
+.tl:hover{transform:scale(1.15)}
+.tl.red{background:#cc241d}.tl.yellow{background:#d79921}.tl.green{background:#98971a}
+.titlebar-text{font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.titlebar-right{margin-left:auto;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--dim);white-space:nowrap}
+.branch{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border:1px solid var(--bg3);border-radius:4px;background:var(--bg1)}
+.branch.synced{color:var(--aqua);border-color:var(--aqua-dim)}
+.activitybar{position:fixed;left:0;top:34px;bottom:24px;width:52px;z-index:50;display:flex;flex-direction:column;align-items:center;
+  gap:4px;padding-top:10px;background:var(--bg0);border-right:1px solid var(--bg2)}
+.nav-btn{position:relative;width:42px;height:42px;display:grid;place-items:center;border-radius:6px;color:var(--faint);
+  border-left:2px solid transparent;transition:color .15s,background .15s}
+.nav-btn:hover{color:var(--fg);background:var(--bg1)}
+.nav-btn.active{color:var(--yellow);border-left-color:var(--yellow)}
+.nav-btn::after{content:attr(data-label);position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%) translateX(-4px);
+  background:var(--bg2);color:var(--fg);font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:4px;border:1px solid var(--bg3);
+  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:60}
+.nav-btn:hover::after,.nav-btn:focus-visible::after{opacity:1;transform:translateY(-50%) translateX(0)}
+.ab-spacer{flex:1}
+.mobilebar{display:none;position:fixed;top:34px;left:0;right:0;height:44px;z-index:50;background:var(--bg0);
+  border-bottom:1px solid var(--bg2);align-items:center;gap:2px;padding:0 10px;overflow-x:auto}
+.mobilebar .nav-btn{width:40px;height:36px;border-left:none;border-bottom:2px solid transparent;border-radius:4px}
+.mobilebar .nav-btn.active{border-bottom-color:var(--yellow)}
+.statusbar{position:fixed;left:0;right:0;bottom:0;height:24px;z-index:50;display:flex;align-items:center;gap:14px;
+  padding:0 12px;background:var(--bg0);border-top:1px solid var(--bg2);font-family:var(--mono);font-size:10.5px;color:var(--dim);
+  white-space:nowrap;overflow:hidden}
+.sb-item{display:inline-flex;align-items:center;gap:5px}
+.sb-ok{color:var(--green)} .sb-warn{color:var(--yellow)} .sb-esc{color:var(--red)}
+.sb-spacer{flex:1}
+#sb-file{color:var(--fg)}
+main{max-width:1120px;margin:0 auto;padding:28px 20px 20px}
+@media(max-width:768px){
+  body{padding-left:0;padding-top:78px}
+  .activitybar{display:none}
+  .mobilebar{display:flex}
+  main{padding:20px 14px}
+}
+
+/* ───────────────────────── window / section components ───────────────────────── */
+.win{border:1px solid var(--bg2);border-radius:8px;background:var(--bg0);box-shadow:0 24px 60px -30px rgba(0,0,0,.55);overflow:hidden}
+.win-bar{display:flex;align-items:center;gap:8px;height:34px;padding:0 14px;background:var(--bg0h);border-bottom:1px solid var(--bg2);
+  font-family:var(--mono);font-size:11px;color:var(--faint)}
+.win-bar .crumb{color:var(--dim)}
+.win-bar .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.kbd{border:1px solid var(--bg3);border-radius:3px;padding:0 4px;font-size:10px;color:var(--dim);background:var(--bg1)}
+.rec{color:var(--red);display:inline-flex;align-items:center;gap:5px;font-size:10px;letter-spacing:.08em}
+.rec .dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:lamp-pulse 1s ease-in-out infinite}
+.win-tabs{display:flex;align-items:stretch;height:36px;background:var(--bg0h);border-bottom:1px solid var(--bg2);overflow-x:auto}
+.tab{font-family:var(--mono);font-size:11.5px;color:var(--faint);padding:0 14px;display:inline-flex;align-items:center;gap:7px;
+  border-right:1px solid var(--bg2);white-space:nowrap;transition:color .15s,background .15s}
+.tab:hover{color:var(--fg);background:var(--bg1)}
+.tab.active{background:var(--bg0);color:var(--fg);box-shadow:inset 0 2px 0 var(--yellow)}
+.tab .t-dot{width:7px;height:7px;border-radius:50%}
+section{padding-top:72px;scroll-margin-top:88px}
+.sec-head{margin-bottom:30px}
+.sec-head .file-line{font-family:var(--mono);font-size:12.5px;color:var(--yellow-dim)}
+.sec-head .file-line .sl{color:var(--faint)}
+.sec-head h2{margin-top:8px;font-family:var(--mono);font-size:clamp(26px,4.5vw,36px);font-weight:800;letter-spacing:-.02em}
+.sec-head h2 .u{color:var(--yellow)}
+.sec-head .hash{margin-top:7px;font-family:var(--mono);font-size:13px;color:var(--faint)}
+.sec-head .rule{margin-top:16px;height:1px;width:96px;background:linear-gradient(90deg,var(--yellow-dim),transparent)}
+.sub-head{margin:44px 0 20px}
+.sub-head .file-line{font-family:var(--mono);font-size:12.5px;color:var(--yellow-dim)}
+.sub-head h3{margin-top:8px;font-family:var(--mono);font-size:clamp(20px,3vw,28px);font-weight:800}
+.sub-head h3 .dot{color:var(--yellow)}
+.sub-head h3 .sub{color:var(--faint);font-size:16px;font-weight:400}
+.card{border:1px solid var(--bg2);background:var(--bg0);border-radius:6px;transition:border-color .2s}
+.card:hover{border-color:var(--bg3)}
+
+/* ───────────────────────── hero editor ───────────────────────── */
+.editor-grid{display:grid;grid-template-columns:1fr 72px}
+.editor-code{display:flex;overflow-x:auto;padding:14px 0;font-family:var(--mono);font-size:13px;line-height:1.85}
+.gutter{padding:0 14px 0 16px;text-align:right;color:var(--faint);opacity:.55;user-select:none;flex-shrink:0}
+.gutter span,.code span.ln{display:block;min-height:1.85em}
+.code{min-width:0;flex:1;padding-right:14px}
+.code span.ln{white-space:pre}
+.tk-k{color:var(--orange)}.tk-v{color:var(--aqua)}.tk-p{color:var(--blue)}.tk-s{color:var(--green)}
+.tk-b{color:var(--purple)}.tk-c{color:var(--faint);font-style:italic}.tk-t{color:var(--yellow)}.tk-fn{color:var(--yellow)}
+.in1{padding-left:2ch}.in2{padding-left:4ch}
+.caret{display:inline-block;width:.62em;height:1.05em;margin-left:2px;background:var(--yellow);vertical-align:text-bottom;animation:blink 1.1s steps(1,end) infinite}
+@keyframes blink{50%{opacity:0}}
+.code-line{opacity:0;transform:translateX(-8px);animation:line-in .45s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:calc(var(--d)*75ms)}
+@keyframes line-in{to{opacity:1;transform:none}}
+.minimap{border-left:1px solid var(--bg2);background:var(--bg0h);padding:14px 10px;display:flex;flex-direction:column;gap:5px}
+.mm{height:3px;border-radius:2px;background:var(--bg3)}
+.mm.hot{background:var(--yellow-dim);opacity:.8}.mm.cool{background:var(--aqua-dim);opacity:.55}
+@media(max-width:640px){.editor-grid{grid-template-columns:1fr}.minimap{display:none}}
+
+.cta-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--bg2);border-radius:6px;background:var(--bg0);
+  margin-top:18px;overflow:hidden}
+.cta{display:flex;align-items:center;gap:10px;padding:15px 16px;color:var(--dim);transition:background .15s,color .15s;text-align:left}
+.cta:hover{background:var(--bg1)}
+.cta .pr{color:var(--green-dim)}
+.cta .cmd{font-family:var(--mono);font-size:12.5px;color:var(--yellow)}
+.cta:hover .cmd{color:var(--fg)}
+.cta .flag{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.cta .go{margin-left:auto;opacity:0;transform:translateX(-4px);transition:.15s;color:var(--yellow)}
+.cta:hover .go{opacity:1;transform:none}
+@media(max-width:768px){.cta-grid{grid-template-columns:1fr 1fr}.cta:nth-child(odd){border-right:1px solid var(--bg2)}.cta:nth-child(n+3){border-top:1px solid var(--bg2)}}
+@media(max-width:460px){.cta-grid{grid-template-columns:1fr}.cta{border-right:none!important}.cta:nth-child(n+2){border-top:1px solid var(--bg2)}}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--bg2);border-radius:6px;background:var(--bg0);margin-top:18px;overflow:hidden}
+.metric{padding:14px 16px;transition:background .15s}
+.metric:hover{background:var(--bg1)}
+.metric+.metric{border-left:1px solid var(--bg2)}
+.metric .v{font-family:var(--mono);font-size:22px;font-weight:800}
+.metric .l{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:3px}
+@media(max-width:768px){.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(even){border-left:1px solid var(--bg2)}.metric:nth-child(n+3){border-top:1px solid var(--bg2)}}
+
+/* ───────────────────────── about / skills ───────────────────────── */
+.about-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;align-items:start}
+@media(max-width:980px){.about-grid{grid-template-columns:1fr}}
+.prose{padding:26px}
+.prose p{font-size:15.5px;line-height:1.75;color:var(--dim)}
+.prose p+p{margin-top:16px}
+.prose strong{color:var(--fg);font-weight:600}
+.prose mark{background:transparent;font-weight:600}
+.fn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bg2);border:1px solid var(--bg2);border-radius:4px;overflow:hidden;margin-top:22px}
+.fn-grid>div{background:var(--bg1);padding:12px 14px;transition:background .15s}
+.fn-grid>div:hover{background:var(--bg2)}
+.fn-grid .fn{font-family:var(--mono);font-size:12px;color:var(--orange)}
+.fn-grid .fd{margin-top:5px;font-size:12px;line-height:1.5;color:var(--faint)}
+@media(max-width:560px){.fn-grid{grid-template-columns:1fr}}
+.status-win .hd{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--bg2);background:var(--bg0h);font-family:var(--mono);font-size:12px;color:var(--dim)}
+.lamp{width:8px;height:8px;border-radius:50%;background:var(--green);animation:lamp-pulse 1.6s ease-in-out infinite}
+@keyframes lamp-pulse{50%{opacity:.35}}
+.status-dl{padding:18px 20px;display:grid;gap:12px;font-family:var(--mono);font-size:13px}
+.status-dl .row{display:flex;gap:10px;align-items:baseline}
+.status-dl dt{color:var(--faint);width:96px;flex-shrink:0}
+.status-dl dd{word-break:break-word}
+.c-blue{color:var(--blue)}.c-green{color:var(--green)}.c-yellow{color:var(--yellow)}.c-aqua{color:var(--aqua)}.c-purple{color:var(--purple)}.c-orange{color:var(--orange)}.c-red{color:var(--red)}
+.progress-wrap{padding:0 20px 20px}
+.progress-label{font-family:var(--mono);font-size:11px;color:var(--faint);margin-bottom:7px}
+.progress{height:6px;border-radius:99px;background:var(--bg2);overflow:hidden}
+.progress>div{height:100%;width:62%;border-radius:99px;background:linear-gradient(90deg,var(--green-dim),var(--yellow))}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.skills-grid .wide{grid-column:span 2}
+@media(max-width:860px){.skills-grid{grid-template-columns:1fr}.skills-grid .wide{grid-column:span 1}}
+.skill-panel{padding:20px}
+.skill-panel .top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.skill-panel .cat{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.skill-panel .cat .file{color:var(--dim)}
+.skill-panel .count{font-family:var(--mono);font-size:10px;color:var(--faint);border:1px solid var(--bg2);background:var(--bg1);border-radius:99px;padding:2px 9px}
+.skill-panel h4{font-family:var(--mono);font-size:14px;font-weight:700;margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none}
+.tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bg3);background:var(--bg1);border-radius:3px;
+  padding:4px 10px;font-family:var(--mono);font-size:12px;color:var(--dim);transition:transform .15s,color .15s,border-color .15s;cursor:default}
+.tag:hover{transform:translateY(-2px)}
+.tag i{width:6px;height:6px;border-radius:50%;display:inline-block}
+.a-aqua .tag:hover{border-color:var(--aqua-dim);color:var(--aqua)} .a-aqua i{background:var(--aqua)} .a-aqua h4{color:var(--aqua)}
+.a-green .tag:hover{border-color:var(--green-dim);color:var(--green)} .a-green i{background:var(--green)} .a-green h4{color:var(--green)}
+.a-orange .tag:hover{border-color:var(--orange-dim);color:var(--orange)} .a-orange i{background:var(--orange)} .a-orange h4{color:var(--orange)}
+.a-yellow .tag:hover{border-color:var(--yellow-dim);color:var(--yellow)} .a-yellow i{background:var(--yellow)} .a-yellow h4{color:var(--yellow)}
+.a-purple .tag:hover{border-color:rgba(211,134,155,.6);color:var(--purple)} .a-purple i{background:var(--purple)} .a-purple h4{color:var(--purple)}
+
+/* ───────────────────────── projects ───────────────────────── */
+.proj-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.proj{padding:22px;display:flex;flex-direction:column}
+.proj.corinna{grid-column:span 7}
+.proj.notes{grid-column:span 5;background:var(--bg0h)}
+@media(max-width:900px){.proj.corinna,.proj.notes{grid-column:span 12}}
+.proj .p-top{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.proj .p-top .right{margin-left:auto}
+.proj h3{font-family:var(--mono);font-size:20px;font-weight:800;margin:12px 0 8px}
+.proj .p-desc{font-size:14.5px;line-height:1.7;color:var(--dim)}
+.proj .p-desc mark{background:transparent;font-weight:600;color:var(--green)}
+.impact{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bg2);border:1px solid var(--bg2);border-radius:4px;overflow:hidden;margin-top:16px}
+.impact>div{background:var(--bg1);padding:10px 14px;transition:background .15s}
+.impact>div:hover{background:var(--bg2)}
+.impact .iv{font-family:var(--mono);font-size:16px;font-weight:800;color:var(--green)}
+.impact .il{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:2px}
+.p-stack{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin-top:16px}
+.p-stack li{font-family:var(--mono);font-size:11px;color:var(--dim);border:1px solid var(--bg3);background:var(--bg1);border-radius:3px;padding:3px 9px;transition:color .15s,border-color .15s}
+.p-stack li:hover{color:var(--yellow);border-color:var(--yellow-dim)}
+.term-block{margin-top:16px;border:1px solid var(--bg2);border-radius:5px;background:var(--bg0);font-family:var(--mono);font-size:12.5px;line-height:1.9;padding:12px 16px;overflow-x:auto}
+.term-block .dim{color:var(--faint)}
+
+/* ───────────────────────── git log ───────────────────────── */
+.gitlog{position:relative;padding-left:30px}
+.gitlog::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:1px;background:var(--bg3)}
+.commit{position:relative;margin-bottom:30px}
+.commit .node{position:absolute;left:-30px;top:6px;width:23px;height:23px;display:grid;place-items:center}
+.commit .node i{display:block;width:10px;height:10px;transform:rotate(45deg);border-radius:2px;background:var(--bg2);border:1px solid var(--bg3)}
+.commit.head .node i{background:var(--yellow);border-color:var(--yellow);box-shadow:0 0 12px rgba(250,189,47,.55)}
+.commit-hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding:16px 20px 0;font-family:var(--mono);font-size:13px}
+.commit-hd .hash{color:var(--yellow);font-weight:700}
+.commit-hd .refs{color:var(--green-dim)}
+.commit-hd .when{margin-left:auto;color:var(--faint);font-size:11px}
+.commit-bd{padding:8px 20px 18px}
+.commit-bd h3{font-size:19px;font-weight:600}
+.commit-bd h3 .co{color:var(--yellow-dim)}
+.commit-bd h3 .sep{color:var(--faint);font-weight:400}
+.commit-bd .author{margin-top:5px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.commit-msg{margin-top:12px;border-left:2px solid rgba(215,153,33,.7);background:rgba(50,48,47,.6);border-radius:0 3px 3px 0;padding:11px 14px 11px 15px}
+.commit-msg .title{font-family:var(--mono);font-size:13.5px;font-weight:500}
+.commit-msg ul{list-style:none;margin-top:9px;display:grid;gap:5px}
+.commit-msg li{display:flex;gap:9px;font-size:14px;line-height:1.6;color:var(--dim)}
+.commit-msg li::before{content:"▸";color:var(--aqua-dim);flex-shrink:0}
+.commit .files{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.commit .files .ok{color:var(--green-dim)}
+.notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.notes-grid{grid-template-columns:1fr}}
+.note{padding:20px}
+.note h4{font-family:var(--mono);font-size:12px;margin-bottom:10px}
+.note .deg{font-size:15px;font-weight:600}
+.note .sch{margin-top:3px;font-size:14px;color:var(--dim)}
+.note .per{margin-top:9px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.note ul{list-style:none;display:grid;gap:10px}
+.note li{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:14px;color:var(--dim)}
+.note li .nm{color:var(--yellow-dim);margin-right:6px}
+.note li .is{color:var(--faint)}
+.note li .dt{font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap}
+.gitnotes-label{font-family:var(--mono);font-size:12px;color:var(--faint);margin:40px 0 16px}
+.gitnotes-label .pr{color:var(--yellow-dim)} .gitnotes-label .dash{color:var(--bg3)}
+
+/* ───────────────────────── bug game ───────────────────────── */
+.hud{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:baseline;padding:10px 16px;background:var(--bg0);border-bottom:1px solid var(--bg2);font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.hud .val{font-weight:800;font-size:18px;margin-left:7px}
+.hud .val.score{color:var(--yellow)} .hud .val.time{color:var(--green)} .hud .val.time.low{color:var(--red)} .hud .val.errs{color:var(--red)}
+.terminal-body{position:relative;height:350px;background:#1b1d1e;overflow:hidden}
+.terminal-body::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(235,219,178,.025) 0 1px,transparent 1px 3px)}
+#log{position:absolute;inset:0;overflow-y:auto;padding:14px 16px 46px;list-style:none;font-family:var(--mono);font-size:12px;line-height:1.8}
+#log li{animation:line-in .3s ease-out}
+#log .l-ok{color:var(--green)} #log .l-dim{color:var(--faint)} #log .l-err{color:var(--red)} #log .l-warn{color:var(--yellow)}
+#log .bld{font-weight:700;color:var(--fg)}
+#arena{position:absolute;inset:0;cursor:crosshair}
+.bug-btn{position:absolute;transform:translate(-50%,-50%);line-height:1;touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:crosshair;padding:6px}
+.bug-glyph{display:inline-block;font-size:30px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));animation:bug-pop .28s cubic-bezier(.34,1.56,.64,1) both}
+.bug-btn:hover .bug-glyph{animation:bug-wiggle .3s ease-in-out infinite}
+.bug-squashed{animation:bug-squash .3s ease-out forwards!important}
+@keyframes bug-pop{0%{transform:scale(.15) rotate(-30deg);opacity:0}70%{transform:scale(1.18) rotate(6deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes bug-wiggle{0%,100%{transform:rotate(-8deg) scale(1.05)}50%{transform:rotate(9deg) scale(1.05)}}
+@keyframes bug-squash{to{transform:scale(.05) rotate(80deg);opacity:0}}
+.float-plus{position:absolute;transform:translate(-50%,-90%);font-family:var(--mono);font-weight:700;color:var(--green);animation:float-up .55s ease-out forwards;pointer-events:none;z-index:5}
+@keyframes float-up{0%{transform:translate(-50%,-90%);opacity:1}100%{transform:translate(-50%,-220%);opacity:0}}
+.miss-flash{animation:miss-flash .5s ease-out}
+@keyframes miss-flash{30%{box-shadow:inset 0 0 0 2px rgba(251,73,52,.75)}}
+.overlay{position:absolute;inset:0;z-index:10;display:grid;place-items:center;text-align:center;padding:20px;background:rgba(23,25,26,.86)}
+.overlay .panel{max-width:430px;width:100%}
+.overlay .kicker{font-family:var(--mono);font-size:11px;color:var(--yellow-dim);letter-spacing:.08em}
+.overlay h3{font-family:var(--mono);font-size:clamp(19px,3vw,24px);font-weight:800;margin:10px 0}
+.overlay .rule{display:inline-block;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--dim);text-align:left;border:1px solid var(--bg3);background:var(--bg1);border-radius:5px;padding:12px 18px}
+.overlay .rule .ok{color:var(--green)} .overlay .rule .bad{color:var(--red)}
+.overlay .start-note{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.overlay .end-msg{font-family:var(--mono);font-size:15px;font-weight:700}
+.overlay .end-stats{margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;font-weight:700;border-radius:4px;padding:11px 20px;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-yellow{background:var(--yellow);color:var(--bg0h)}
+.btn-yellow:hover{background:#fbc95a}
+.btn-ghost{border:1px solid var(--bg3);color:var(--dim);background:var(--bg1)}
+.btn-ghost:hover{border-color:var(--yellow-dim);color:var(--yellow)}
+.game-hint{margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.game-status{margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+.game-status .ok{color:var(--green)}
+
+/* ───────────────────────── contact / footer ───────────────────────── */
+.contact-body{padding:26px}
+@media(max-width:640px){.contact-body{padding:20px 16px}}
+.echo-line{font-family:var(--mono);font-size:13px;color:var(--faint)}
+.email-row{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.email-big{font-family:var(--mono);font-size:clamp(19px,3.4vw,34px);font-weight:800;color:var(--yellow);
+  text-decoration:underline;text-decoration-color:var(--bg3);text-decoration-thickness:2px;text-underline-offset:8px;
+  transition:text-decoration-color .2s;word-break:break-all}
+.email-big:hover{text-decoration-color:var(--yellow)}
+.copy-btn{font-family:var(--mono);font-size:12px;padding:9px 14px;border-radius:3px;border:1px solid var(--bg3);background:var(--bg1);color:var(--dim);transition:.15s}
+.copy-btn:hover{border-color:var(--yellow-dim);color:var(--yellow)}
+.copy-btn.done{border-color:var(--green-dim);color:var(--green);background:rgba(184,187,38,.1)}
+.channels{margin-top:26px;list-style:none;display:grid;gap:11px;font-family:var(--mono);font-size:14px}
+.channels a{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;color:var(--dim);transition:color .15s}
+.channels a:hover{color:var(--fg)}
+.channels .pr{color:var(--green-dim);transition:color .15s}
+.channels a:hover .pr{color:var(--green)}
+.channels .tgt{color:var(--blue)}
+.channels .fl{color:var(--faint)}
+.channels .arr{opacity:0;color:var(--yellow);transition:opacity .15s}
+.channels a:hover .arr{opacity:1}
+.avail{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;border:1px solid rgba(152,151,26,.4);
+  background:rgba(184,187,38,.05);border-radius:3px;padding:13px 16px}
+.avail .st{font-family:var(--mono);font-size:13px;color:var(--green)}
+.avail .st b{font-weight:700}
+.avail .dt{font-size:13px;color:var(--dim)}
+.keen{margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.foot{margin-top:56px;border-top:1px solid var(--bg2);padding:20px 0 8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.foot .sl{color:var(--bg3)}
+.foot .right{display:flex;align-items:center;gap:14px}
+.foot .exit{color:var(--green)}
+.foot button{color:var(--dim);font-family:var(--mono);font-size:11px;transition:color .15s}
+.foot button:hover{color:var(--yellow)}
+
+/* ───────────────────────── reveal / motion prefs ───────────────────────── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .65s cubic-bezier(.2,.7,.3,1);transition-delay:var(--rd,0ms)}
+.reveal.is-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal,.code-line{opacity:1;transform:none;animation:none;transition:none}
+  .caret,.lamp,.rec .dot,.bug-glyph,.bug-btn:hover .bug-glyph,.bug-squashed,.float-plus,.miss-flash,#log li{animation:none!important}
+  .bug-squashed{opacity:0}
+  .btn:hover,.tag:hover,.cta:hover .go,.metric,.cta{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ title bar ═══════════ -->
+<header class="titlebar">
+  <div class="traffic" aria-hidden="true"><span class="tl red"></span><span class="tl yellow"></span><span class="tl green"></span></div>
+  <p class="titlebar-text">zamil-khan — portfolio — zsh — 120×42</p>
+  <div class="titlebar-right">
+    <span class="branch"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> main*</span>
+    <span class="branch synced"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> synced</span>
+  </div>
+</header>
+
+<!-- ═══════════ activity bar (desktop nav) ═══════════ -->
+<nav class="activitybar" aria-label="Section navigation">
+  <a class="nav-btn" href="#top" data-label="explorer · top" data-sec="top" aria-label="Top"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></a>
+  <a class="nav-btn" href="#about" data-label="about.md" data-sec="about" aria-label="About and skills"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+  <a class="nav-btn" href="#projects" data-label="projects.json" data-sec="projects" aria-label="Projects"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></a>
+  <a class="nav-btn" href="#experience" data-label="career.log" data-sec="experience" aria-label="Experience"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg></a>
+  <a class="nav-btn" href="#game" data-label="fun.spec.ts" data-sec="game" aria-label="Fix the Bug game"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg></a>
+  <a class="nav-btn" href="#contact" data-label="contact.sh" data-sec="contact" aria-label="Contact"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+  <span class="ab-spacer"></span>
+  <a class="nav-btn" href="https://github.com/zamil-khan" target="_blank" rel="noopener noreferrer" data-label="github.com/zamil-khan" aria-label="GitHub profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+</nav>
+
+<!-- ═══════════ mobile nav ═══════════ -->
+<nav class="mobilebar" aria-label="Section navigation">
+  <a class="nav-btn" href="#top" data-sec="top" aria-label="Top"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></a>
+  <a class="nav-btn" href="#about" data-sec="about" aria-label="About and skills"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+  <a class="nav-btn" href="#projects" data-sec="projects" aria-label="Projects"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></a>
+  <a class="nav-btn" href="#experience" data-sec="experience" aria-label="Experience"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg></a>
+  <a class="nav-btn" href="#game" data-sec="game" aria-label="Fix the Bug game"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg></a>
+  <a class="nav-btn" href="#contact" data-sec="contact" aria-label="Contact"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+</nav>
+
+<main id="top">
+
+  <!-- ═══════════ hero · zamil.ts ═══════════ -->
+  <section id="hero" style="padding-top:34px" aria-label="Introduction">
+    <div class="win reveal">
+      <div class="win-bar">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <span class="crumb">zamil-khan › portfolio › src › <strong style="color:var(--fg);font-weight:500">zamil.ts</strong></span>
+      </div>
+      <div class="win-tabs" role="tablist">
+        <a class="tab active" href="#top" role="tab" aria-selected="true"><span class="t-dot" style="background:var(--blue)"></span>zamil.ts</a>
+        <a class="tab" href="#about" role="tab"><span class="t-dot" style="background:var(--aqua)"></span>about.md</a>
+        <a class="tab" href="#projects" role="tab"><span class="t-dot" style="background:var(--yellow)"></span>README.md</a>
+        <span class="tab" style="cursor:default;border-right:none">⌥ ⌘ P &nbsp;·&nbsp; <span class="t-dot" style="background:var(--green)"></span> main</span>
+      </div>
+      <div class="editor-grid">
+        <div class="editor-code">
+          <div class="gutter" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span></div>
+          <div class="code" aria-label="Code introduction of Zamil Khan">
+            <span class="ln code-line" style="--d:1"><span class="tk-c">/**</span></span>
+            <span class="ln code-line" style="--d:2"><span class="tk-c"> * portfolio v2.0 — compiled with chai ☕</span></span>
+            <span class="ln code-line" style="--d:3"><span class="tk-c"> */</span></span>
+            <span class="ln code-line" style="--d:4"><span class="tk-k">interface</span> <span class="tk-t">Engineer</span> {</span>
+            <span class="ln code-line" style="--d:5"><span class="in1">name</span>: <span class="tk-t">string</span>;</span>
+            <span class="ln code-line" style="--d:6"><span class="in1">role</span>: <span class="tk-t">string</span>;</span>
+            <span class="ln code-line" style="--d:7"><span class="in1">stack</span>: <span class="tk-t">string</span>[];</span>
+            <span class="ln code-line" style="--d:8"><span class="in1">builds</span>: () <span class="tk-k">=&gt;</span> <span class="tk-t">void</span>;</span>
+            <span class="ln code-line" style="--d:9">}</span>
+            <span class="ln code-line" style="--d:10">&nbsp;</span>
+            <span class="ln code-line" style="--d:11"><span class="tk-k">const</span> <span class="tk-v">zamil</span>: <span class="tk-t">Engineer</span> = {</span>
+            <span class="ln code-line" style="--d:12"><span class="in1">name</span>: <span class="tk-s">"Zamil Khan"</span>,</span>
+            <span class="ln code-line" style="--d:13"><span class="in1">role</span>: <span class="tk-s">"Lead Frontend Developer"</span>,</span>
+            <span class="ln code-line" style="--d:14"><span class="in1">base</span>: <span class="tk-s">"Gurgaon, India"</span>, <span class="tk-c">// open to EU relocation · remote</span></span>
+            <span class="ln code-line" style="--d:15"><span class="in1">stack</span>: [<span class="tk-s">"React"</span>, <span class="tk-s">"TypeScript"</span>, <span class="tk-s">"Next.js"</span>, <span class="tk-s">"Tailwind"</span>],</span>
+            <span class="ln code-line" style="--d:16"><span class="in1">mentors</span>: <span class="tk-b">true</span>, <span class="tk-c">// juniors → confident shippers</span></span>
+            <span class="ln code-line" style="--d:17"><span class="in1">caresAbout</span>: [<span class="tk-s">"performance"</span>, <span class="tk-s">"accessibility"</span>, <span class="tk-s">"clean energy"</span>],</span>
+            <span class="ln code-line" style="--d:18"><span class="in1">currentlyExploring</span>: <span class="tk-s">"React Native"</span>,</span>
+            <span class="ln code-line" style="--d:19"><span class="in1"><span class="tk-fn">ship</span></span>: () <span class="tk-k">=&gt;</span> <span class="tk-fn">build</span>(<span class="tk-s">"scalable, user-friendly apps"</span>),</span>
+            <span class="ln code-line" style="--d:20">};</span>
+            <span class="ln code-line" style="--d:21">&nbsp;</span>
+            <span class="ln code-line" style="--d:22"><span class="tk-c">// status: open to work</span></span>
+            <span class="ln code-line" style="--d:23"><span class="tk-v">zamil</span>.<span class="tk-fn">ship</span>();<span class="caret" aria-hidden="true"></span></span>
+            <span class="ln code-line" style="--d:24">&nbsp;</span>
+          </div>
+        </div>
+        <div class="minimap" aria-hidden="true">
+          <div class="mm" style="width:52%"></div><div class="mm" style="width:78%"></div><div class="mm" style="width:34%"></div>
+          <div class="mm hot" style="width:88%"></div><div class="mm" style="width:46%"></div><div class="mm" style="width:70%"></div>
+          <div class="mm" style="width:58%"></div><div class="mm cool" style="width:82%"></div><div class="mm" style="width:40%"></div>
+          <div class="mm hot" style="width:64%"></div><div class="mm" style="width:50%"></div><div class="mm" style="width:74%"></div>
+          <div class="mm cool" style="width:44%"></div><div class="mm" style="width:60%"></div><div class="mm" style="width:86%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-grid reveal" style="--rd:120ms">
+      <a class="cta" href="#projects"><span class="pr">$</span><span><span class="cmd">view-projects</span> <span class="flag">--prod</span></span><span class="go">↵</span></a>
+      <button class="cta" id="dl-resume" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span><span class="cmd">curl -o resume</span> <span class="flag">zamil.md</span></span><span class="go">↵</span></button>
+      <a class="cta" href="#contact"><span class="pr">$</span><span><span class="cmd">./contact-me</span> <span class="flag">--now</span></span><span class="go">↵</span></a>
+      <a class="cta" href="https://github.com/zamil-khan" target="_blank" rel="noopener noreferrer"><span class="pr">$</span><span><span class="cmd">open github</span> <span class="flag">/zamil-khan</span></span><span class="go">↗</span></a>
+    </div>
+
+    <div class="metrics reveal" style="--rd:200ms">
+      <div class="metric"><div class="v c-yellow">3+ yrs</div><div class="l">frontend experience</div></div>
+      <div class="metric"><div class="v c-green">-15%</div><div class="l">page load time @ HubinIT</div></div>
+      <div class="metric"><div class="v c-green">-40%</div><div class="l">support wait time · Corinna AI</div></div>
+      <div class="metric"><div class="v c-aqua">98%</div><div class="l">peak CSAT @ Elcamino</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 01 · about / skills ═══════════ -->
+  <section id="about" aria-label="About and skills">
+    <div class="sec-head reveal">
+      <p class="file-line"><span class="sl">//</span> 01 · about.md</p>
+      <h2>whoami<span class="u">_</span></h2>
+      <p class="hash"># markdown preview · rendered with care</p>
+      <div class="rule"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="card prose reveal">
+        <p style="font-family:var(--mono);font-size:12px;color:var(--faint);margin-bottom:14px"><span style="color:var(--yellow-dim)">#</span> README</p>
+        <p>I'm <strong>Zamil Khan</strong>, a <strong>Lead Frontend Developer</strong> specializing in <mark class="c-yellow">React</mark>, <mark class="c-yellow">TypeScript</mark>, and <mark class="c-yellow">Tailwind CSS</mark>. I build scalable, user-friendly applications — and I care about the whole lifecycle: mentoring junior devs, driving frontend architecture, hiring, and code reviews.</p>
+        <p>I'm passionate about <mark class="c-aqua">performance</mark>, <mark class="c-aqua">accessibility</mark>, and <mark class="c-green">clean energy &amp; sustainability-focused products</mark> — software should be fast for users and kind to the planet.</p>
+        <div class="fn-grid">
+          <div><p class="fn">mentor()</p><p class="fd">guide junior devs to ship with confidence</p></div>
+          <div><p class="fn">architect()</p><p class="fd">drive frontend structure that scales</p></div>
+          <div><p class="fn">review()</p><p class="fd">hiring loops &amp; honest code reviews</p></div>
+        </div>
+      </div>
+
+      <div class="card status-win reveal" style="--rd:120ms">
+        <div class="hd"><span class="lamp" aria-hidden="true"></span>status — live</div>
+        <dl class="status-dl">
+          <div class="row"><dt>location:</dt><dd class="c-blue">Gurgaon, Haryana, India</dd></div>
+          <div class="row"><dt>open_to:</dt><dd class="c-green">relocation (EU) · remote</dd></div>
+          <div class="row"><dt>exploring:</dt><dd class="c-yellow">React Native</dd></div>
+          <div class="row"><dt>focus:</dt><dd class="c-aqua">perf · a11y · clean energy</dd></div>
+          <div class="row"><dt>languages:</dt><dd class="c-purple">EN · HI · UR</dd></div>
+        </dl>
+        <div class="progress-wrap">
+          <p class="progress-label">learning_progress <span class="c-yellow">React Native</span></p>
+          <div class="progress"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-head reveal" style="margin-top:56px">
+      <p class="file-line"><span style="color:var(--faint)">//</span> 01.1 · tree skills/</p>
+      <h3>dependencies<span class="dot">.</span> <span class="sub">installed &amp; battle-tested</span></h3>
+    </div>
+    <div class="skills-grid">
+      <div class="card skill-panel wide a-aqua reveal"><div class="top"><p class="cat">$ cat skills/<span class="file">frontend.deps</span></p><span class="count">10 pkgs</span></div><h4>Frontend</h4><ul class="tags"><li><span class="tag"><i></i>TypeScript</span></li><li><span class="tag"><i></i>JavaScript</span></li><li><span class="tag"><i></i>React.js</span></li><li><span class="tag"><i></i>Next.js</span></li><li><span class="tag"><i></i>Material UI</span></li><li><span class="tag"><i></i>Tailwind CSS</span></li><li><span class="tag"><i></i>shadcn/ui</span></li><li><span class="tag"><i></i>State Management</span></li><li><span class="tag"><i></i>Responsive Design</span></li><li><span class="tag"><i></i>React Testing Library</span></li></ul></div>
+      <div class="card skill-panel a-green reveal"><div class="top"><p class="cat">$ cat skills/<span class="file">backend-api.deps</span></p><span class="count">5 pkgs</span></div><h4>Backend &amp; APIs</h4><ul class="tags"><li><span class="tag"><i></i>Node.js</span></li><li><span class="tag"><i></i>Express.js</span></li><li><span class="tag"><i></i>REST APIs</span></li><li><span class="tag"><i></i>PostgreSQL</span></li><li><span class="tag"><i></i>MongoDB</span></li></ul></div>
+      <div class="card skill-panel a-orange reveal" style="--rd:100ms"><div class="top"><p class="cat">$ cat skills/<span class="file">devops.deps</span></p><span class="count">6 pkgs</span></div><h4>DevOps &amp; Tools</h4><ul class="tags"><li><span class="tag"><i></i>GitHub Actions</span></li><li><span class="tag"><i></i>Docker</span></li><li><span class="tag"><i></i>Jenkins</span></li><li><span class="tag"><i></i>Kubernetes</span></li><li><span class="tag"><i></i>AWS</span></li><li><span class="tag"><i></i>Git</span></li></ul></div>
+      <div class="card skill-panel a-yellow reveal"><div class="top"><p class="cat">$ cat skills/<span class="file">languages.deps</span></p><span class="count">4 pkgs</span></div><h4>Languages</h4><ul class="tags"><li><span class="tag"><i></i>TypeScript</span></li><li><span class="tag"><i></i>JavaScript</span></li><li><span class="tag"><i></i>Go</span></li><li><span class="tag"><i></i>Python (basic)</span></li></ul></div>
+      <div class="card skill-panel a-purple reveal" style="--rd:100ms"><div class="top"><p class="cat">$ cat skills/<span class="file">practices.deps</span></p><span class="count">5 pkgs</span></div><h4>Practices</h4><ul class="tags"><li><span class="tag"><i></i>Data Structures</span></li><li><span class="tag"><i></i>OOP</span></li><li><span class="tag"><i></i>Agile Scrum</span></li><li><span class="tag"><i></i>Code Reviews</span></li></ul></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 02 · projects ═══════════ -->
+  <section id="projects" aria-label="Projects">
+    <div class="sec-head reveal">
+      <p class="file-line"><span class="sl">//</span> 02 · projects.json</p>
+      <h2>shipped &amp; running<span class="u">_</span></h2>
+      <p class="hash"># 2 repos pinned · CI green</p>
+      <div class="rule"></div>
+    </div>
+    <div class="proj-grid">
+      <article class="card proj corinna reveal">
+        <div class="p-top">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          src/corinna-ai/
+          <span class="right" style="color:var(--green)"><span class="lamp" style="display:inline-block;vertical-align:middle;margin-right:5px"></span>prod · live</span>
+        </div>
+        <h3>Corinna AI</h3>
+        <p class="p-desc">AI-driven support assistant built with <mark>React + TypeScript</mark>, wired to the <mark>ChatGPT API</mark> with live updates and secure authentication. Took real customer load off human agents — support wait times dropped <mark>40%</mark>.</p>
+        <div class="impact">
+          <div><div class="iv">-40%</div><div class="il">customer support wait time</div></div>
+          <div><div class="iv" style="color:var(--yellow)">24/7</div><div class="il">live, authenticated assistance</div></div>
+        </div>
+        <ul class="p-stack"><li>React</li><li>TypeScript</li><li>ChatGPT API</li><li>REST</li><li>Auth</li></ul>
+      </article>
+      <article class="card proj notes reveal" style="--rd:120ms">
+        <div class="p-top">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          ~/cli/notes
+          <span class="right" style="color:var(--aqua)">stable</span>
+        </div>
+        <h3>notes-cli</h3>
+        <p class="p-desc">A Node.js command-line tool for capturing and organizing notes without leaving the terminal — with robust error handling so nothing gets lost mid-thought.</p>
+        <div class="term-block">
+          <div><span style="color:var(--green)">$</span> notes add <span style="color:var(--faint)">"ship it"</span></div>
+          <div class="dim">✔ saved → ~/notes/2026-02.md</div>
+          <div><span style="color:var(--green)">$</span> notes ls <span style="color:var(--faint)">--tag ideas</span></div>
+          <div class="dim">3 notes · 0 errors</div>
+        </div>
+        <ul class="p-stack"><li>Node.js</li><li>CLI</li><li>Filesystem</li><li>Error Handling</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════ 03 · experience (git log) ═══════════ -->
+  <section id="experience" aria-label="Experience timeline">
+    <div class="sec-head reveal">
+      <p class="file-line"><span class="sl">//</span> 03 · career.log</p>
+      <h2>git log --career<span class="u">_</span></h2>
+      <p class="hash"># 3 commits · 0 force-pushes · history preserved</p>
+      <div class="rule"></div>
+    </div>
+
+    <div class="gitlog">
+      <article class="card commit head reveal">
+        <span class="node" aria-hidden="true"><i></i></span>
+        <div class="commit-hd"><span class="hash">commit 4f2a9c1</span><span class="refs">(HEAD -&gt; career, tag: v2.0)</span><span class="when">Oct 2024 – May 2025</span></div>
+        <div class="commit-bd">
+          <h3>Frontend Developer <span class="sep">·</span> <span class="co">HubinIT</span></h3>
+          <p class="author">Author: Zamil Khan &lt;zamilkhan687@gmail.com&gt; <span style="color:var(--bg3)">|</span> Remote — Amsterdam, NL</p>
+          <div class="commit-msg">
+            <p class="title">feat(ui): build dynamic React + TypeScript interfaces</p>
+            <ul>
+              <li>Built dynamic, component-driven UIs in React and TypeScript</li>
+              <li>Cut page load times by 15% through performance profiling &amp; optimization</li>
+              <li>Integrated REST APIs end-to-end with resilient data fetching</li>
+              <li>Ensured pixel-consistent cross-browser compatibility</li>
+              <li>Shipped features in Agile sprints with a distributed team</li>
+            </ul>
+          </div>
+          <p class="files"><span class="ok">✓</span> 42 files changed · +3,180 · −742</p>
+        </div>
+      </article>
+
+      <article class="card commit reveal" style="--rd:90ms">
+        <span class="node" aria-hidden="true"><i></i></span>
+        <div class="commit-hd"><span class="hash">commit 7bd3e58</span><span class="refs">(tag: v1.1)</span><span class="when">Jun 2023 – Dec 2023</span></div>
+        <div class="commit-bd">
+          <h3>Full Stack Engineer <span class="sep">·</span> <span class="co">Fuuss B.V.</span></h3>
+          <p class="author">Author: Zamil Khan &lt;zamilkhan687@gmail.com&gt; <span style="color:var(--bg3)">|</span> Full Stack</p>
+          <div class="commit-msg">
+            <p class="title">fix(stack): diagnose &amp; resolve full-stack bugs at scale</p>
+            <ul>
+              <li>Diagnosed and resolved frontend &amp; backend bugs for a global user base</li>
+              <li>Collaborated across time zones via Slack, Notion &amp; GitHub</li>
+              <li>Wrote onboarding docs that cut new-hire ramp-up time</li>
+            </ul>
+          </div>
+          <p class="files"><span class="ok">✓</span> 28 files changed · +1,920 · −1,104</p>
+        </div>
+      </article>
+
+      <article class="card commit reveal" style="--rd:180ms">
+        <span class="node" aria-hidden="true"><i></i></span>
+        <div class="commit-hd"><span class="hash">commit 1aa04f6</span><span class="refs">(tag: v1.0)</span><span class="when">Nov 2021 – May 2023</span></div>
+        <div class="commit-bd">
+          <h3>Customer Support Specialist <span class="sep">·</span> <span class="co">Elcamino Software Pvt Ltd</span></h3>
+          <p class="author">Author: Zamil Khan &lt;zamilkhan687@gmail.com&gt; <span style="color:var(--bg3)">|</span> On-site</p>
+          <div class="commit-msg">
+            <p class="title">feat(support): keep CSAT in the green</p>
+            <ul>
+              <li>Maintained 90–98% customer satisfaction (CSAT)</li>
+              <li>Resolved tickets in under 30 seconds on average</li>
+            </ul>
+          </div>
+          <p class="files"><span class="ok">✓</span> 1,200+ tickets resolved · SLA met</p>
+        </div>
+      </article>
+    </div>
+
+    <p class="gitnotes-label reveal"><span class="pr">$</span> git notes show career <span class="dash">──</span> education &amp; certifications</p>
+    <div class="notes-grid">
+      <div class="card note reveal">
+        <h4 class="c-blue">## education</h4>
+        <p class="deg">B.Tech, Computer Science</p>
+        <p class="sch">Maharshi Dayanand University</p>
+        <p class="per">Aug 2021 – May 2024</p>
+      </div>
+      <div class="card note reveal" style="--rd:100ms">
+        <h4 class="c-purple">## certifications</h4>
+        <ul>
+          <li><span><span class="nm">▸</span>Full-Stack Web Development <span class="is">— Frontend Masters</span></span><span class="dt">Dec 2023</span></li>
+          <li><span><span class="nm">▸</span>Full-Stack Engineer <span class="is">— 100xDevs</span></span><span class="dt">Jun 2024</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 04 · fix the bug ═══════════ -->
+  <section id="game" aria-label="Fix the Bug mini-game">
+    <div class="sec-head reveal">
+      <p class="file-line"><span class="sl">//</span> 04 · fun.spec.ts</p>
+      <h2>fix-the-bug<span class="u">_</span></h2>
+      <p class="hash"># recruiter build · 30s sprint · no QA harmed</p>
+      <div class="rule"></div>
+    </div>
+
+    <div class="win reveal">
+      <div class="win-bar">
+        <span class="crumb">zsh — npm run fix-bugs</span>
+        <span class="right">
+          <span class="rec"><span class="dot"></span>REC</span>
+          <span class="branch">⎇ ci/main</span>
+        </span>
+      </div>
+      <div class="hud" aria-live="polite">
+        <span>score<span class="val score" id="scoreVal">0</span></span>
+        <span>time<span class="val time" id="timeVal">30.0</span>s</span>
+        <span>errors<span class="val errs" id="errorsVal">0</span></span>
+      </div>
+      <div class="terminal-body" id="terminalBody">
+        <ul id="log" aria-label="Build log"></ul>
+        <div id="arena" aria-label="Bug arena — tap the bugs"></div>
+        <div class="overlay" id="overlayStart">
+          <div class="panel">
+            <p class="kicker">// recruiter_build · v1.0.0</p>
+            <h3>Can you keep the build green?</h3>
+            <p class="rule"><span class="ok">✔</span> squash the <b>🐛</b> before it escapes &nbsp;<span class="bad">✘</span> 3 escapes = BUILD FAILED</p>
+            <button class="btn btn-yellow" id="startBtn" style="margin-top:18px" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              npm run fix-bugs
+            </button>
+            <p class="start-note">30s · 1 bug at a time · tap fast, recruiter</p>
+          </div>
+        </div>
+        <div class="overlay" id="overlayEnd" style="display:none">
+          <div class="panel">
+            <p class="kicker">// build finished in 30.0s</p>
+            <h3 class="end-msg" id="endMsg"></h3>
+            <p class="end-stats" id="endStats"></p>
+            <button class="btn btn-yellow" id="againBtn" style="margin-top:18px" type="button">↻ npm run retry</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="game-hint reveal">tip: bugs live ~2s — faster squash = more time for code review. press <span class="kbd">R</span> to retry.</p>
+    <p class="game-status reveal">exit code: <span class="ok" id="exitCode">0 — awaiting input</span></p>
+  </section>
+
+  <!-- ═══════════ 05 · contact ═══════════ -->
+  <section id="contact" aria-label="Contact">
+    <div class="sec-head reveal">
+      <p class="file-line"><span class="sl">//</span> 05 · contact.sh</p>
+      <h2>open a channel<span class="u">_</span></h2>
+      <p class="hash"># response time: &lt; 24h · no cold-email firewall</p>
+      <div class="rule"></div>
+    </div>
+
+    <div class="win reveal">
+      <div class="win-bar">
+        <span class="traffic" aria-hidden="true" style="gap:6px"><span class="tl red" style="width:9px;height:9px"></span><span class="tl yellow" style="width:9px;height:9px"></span><span class="tl green" style="width:9px;height:9px"></span></span>
+        <span class="crumb" style="margin-left:6px">zsh — 80×24</span>
+      </div>
+      <div class="contact-body">
+        <p class="echo-line"><span class="c-aqua">➜</span> <span class="c-yellow">~</span> <span style="color:var(--dim)">$ echo $BEST_WAY_TO_REACH_ME</span></p>
+        <div class="email-row">
+          <a class="email-big" href="mailto:zamilkhan687@gmail.com">zamilkhan687@gmail.com</a>
+          <button class="copy-btn" id="copyEmail" type="button" aria-live="polite">$ copy</button>
+        </div>
+        <ul class="channels">
+          <li><a href="mailto:zamilkhan687@gmail.com"><span class="pr">$</span> mail --send <span class="fl">--to zamil --subject "let's build"</span> <span class="arr">↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/zamilkhan" target="_blank" rel="noopener noreferrer"><span class="pr">$</span> open <span class="tgt">linkedin.com/in/zamilkhan</span> <span class="fl">--network</span> <span class="arr">↗</span></a></li>
+          <li><a href="https://github.com/zamil-khan" target="_blank" rel="noopener noreferrer"><span class="pr">$</span> git clone <span class="tgt">github.com/zamil-khan</span> <span class="arr">↗</span></a></li>
+        </ul>
+        <div class="avail">
+          <span class="lamp" aria-hidden="true"></span>
+          <p class="st">status: <b>open to work</b></p>
+          <p class="dt">Lead Frontend roles · open to relocation (EU) or remote · base: Gurgaon, Haryana, India</p>
+        </div>
+        <p class="keen">// especially keen on clean energy &amp; sustainability teams — let's make fast software that does good.</p>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <p><span class="sl">/*</span> © 2026 Zamil Khan — designed &amp; built like a codebase <span class="sl">*/</span></p>
+      <p class="right"><span class="exit">exit code 0</span><button id="toTop" type="button">cd ~ ↑</button></p>
+    </footer>
+  </section>
+</main>
+
+<!-- ═══════════ status bar ═══════════ -->
+<div class="statusbar" aria-hidden="true">
+  <span class="sb-item">⎇ main*</span>
+  <span class="sb-item"><span class="sb-ok">✓ 0</span><span class="sb-warn">⚠ 0</span></span>
+  <span class="sb-item"><span class="sb-ok">●</span> squashed:<b id="sb-squashed" style="color:var(--fg)">0</b>&nbsp;&nbsp;<span class="sb-esc">⚠</span> escaped:<b id="sb-escaped" style="color:var(--fg)">0</b></span>
+  <span class="sb-spacer"></span>
+  <span id="sb-file">zamil.ts</span>
+  <span>UTF-8</span><span>LF</span><span>TypeScript React</span>
+  <span id="sb-ln">Ln 1, Col 1</span>
+  <span id="sb-clock">--:--:-- IST</span>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); };
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── clock (IST) ── */
+  var clockEl = $("#sb-clock");
+  function tickClock() {
+    try {
+      clockEl.textContent = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Kolkata" }) + " IST";
+    } catch (e) { clockEl.textContent = new Date().toLocaleTimeString("en-GB") + " IST"; }
+  }
+  tickClock(); setInterval(tickClock, 1000);
+
+  /* ── scroll: Ln counter + scroll-spy ── */
+  var lnEl = $("#sb-ln"), fileEl = $("#sb-file");
+  var navBtns = Array.prototype.slice.call(document.querySelectorAll(".nav-btn[data-sec]"));
+  function onScroll() {
+    var line = 1 + Math.round(window.scrollY / 24);
+    var max = Math.max(1, Math.round(document.documentElement.scrollHeight / 24));
+    lnEl.textContent = "Ln " + Math.min(line, max) + ", Col 1";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  var secFiles = { top: "zamil.ts", hero: "zamil.ts", about: "about.md", projects: "projects.json", experience: "career.log", game: "fun.spec.ts", contact: "contact.sh" };
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var id = e.target.id;
+      fileEl.textContent = secFiles[id] || "zamil.ts";
+      navBtns.forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-sec") === id); });
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  ["hero", "about", "projects", "experience", "game", "contact"].forEach(function (id) {
+    var el = document.getElementById(id); if (el) spy.observe(el);
+  });
+
+  /* ── scroll reveal ── */
+  var reveals = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    reveals.forEach(function (el) { el.classList.add("is-in"); });
+  } else {
+    var rev = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); rev.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+    reveals.forEach(function (el) { rev.observe(el); });
+  }
+
+  /* ── back to top ── */
+  $("#toTop").addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" }); });
+
+  /* ── resume download ── */
+  var RESUME = [
+    "# Zamil Khan — Lead Frontend Developer",
+    "",
+    "Gurgaon, Haryana, India · Open to relocation (EU) or remote",
+    "zamilkhan687@gmail.com · linkedin.com/in/zamilkhan · github.com/zamil-khan",
+    "",
+    "## Summary",
+    "Experienced frontend developer specializing in React, TypeScript, and Tailwind CSS.",
+    "Builds scalable, user-friendly apps, mentors junior devs, drives frontend architecture,",
+    "and participates in hiring/code reviews. Passionate about performance, accessibility,",
+    "and clean energy/sustainability-focused products. Currently exploring React Native.",
+    "",
+    "## Skills",
+    "- Frontend: TypeScript, JavaScript, React.js, Next.js, Material UI, Tailwind CSS, shadcn/ui, State Management, Responsive Design, React Testing Library",
+    "- Backend & APIs: Node.js, Express.js, REST APIs, PostgreSQL, MongoDB",
+    "- DevOps & Tools: GitHub Actions, Docker, Jenkins, Kubernetes, AWS, Git",
+    "- Languages: TypeScript, JavaScript, Go, Python (basic)",
+    "- Practices: Data Structures, OOP, Agile Scrum, Code Reviews",
+    "",
+    "## Experience",
+    "### HubinIT — Frontend Developer (Oct 2024 – May 2025, Remote · Amsterdam, NL)",
+    "- Built dynamic React/TypeScript UIs; cut page load times 15%",
+    "- Integrated REST APIs; ensured cross-browser compatibility",
+    "- Contributed to Agile sprints",
+    "",
+    "### Fuuss B.V. — Full Stack Engineer (Jun 2023 – Dec 2023)",
+    "- Diagnosed/resolved frontend & backend bugs for a global user base",
+    "- Collaborated across time zones via Slack/Notion/GitHub; wrote onboarding docs",
+    "",
+    "### Elcamino Software Pvt Ltd — Customer Support Specialist (Nov 2021 – May 2023)",
+    "- Maintained 90–98% CSAT; resolved tickets in under 30s average",
+    "",
+    "## Projects",
+    "- Corinna AI — AI-driven React + TypeScript app integrating the ChatGPT API; reduced customer support wait times by 40%; live updates and secure authentication.",
+    "- Command-Line Note-Taking App — Node.js CLI tool for organizing notes, with robust error handling.",
+    "",
+    "## Education",
+    "B.Tech, Computer Science — Maharshi Dayanand University (Aug 2021 – May 2024)",
+    "",
+    "## Certifications",
+    "- Full-Stack Web Development — Frontend Masters (Dec 2023)",
+    "- Full-Stack Engineer — 100xDevs (Jun 2024)",
+    ""
+  ].join("\n");
+  $("#dl-resume").addEventListener("click", function () {
+    var blob = new Blob([RESUME], { type: "text/markdown;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Zamil_Khan_Resume.md";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 400);
+  });
+
+  /* ── copy email ── */
+  var copyBtn = $("#copyEmail"), copyT = null;
+  copyBtn.addEventListener("click", function () {
+    function done() {
+      copyBtn.textContent = "✓ copied to clipboard"; copyBtn.classList.add("done");
+      if (copyT) clearTimeout(copyT);
+      copyT = setTimeout(function () { copyBtn.textContent = "$ copy"; copyBtn.classList.remove("done"); }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText("zamilkhan687@gmail.com").then(done, function () { fallback(); done(); });
+    } else { fallback(); done(); }
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = "zamilkhan687@gmail.com";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      ta.remove();
+    }
+  });
+
+  /* ════════════ FIX THE BUG ════════════ */
+  var GAME_MS = 30000, LIFE_MS = 2000, SPAWN_GAP = 800, MAX_ESCAPED = 3;
+  var arena = $("#arena"), logEl = $("#log"), term = $("#terminalBody");
+  var scoreEl = $("#scoreVal"), timeEl = $("#timeVal"), errEl = $("#errorsVal");
+  var ovStart = $("#overlayStart"), ovEnd = $("#overlayEnd");
+  var endMsg = $("#endMsg"), endStats = $("#endStats"), exitEl = $("#exitCode");
+  var sbSquashed = $("#sb-squashed"), sbEscaped = $("#sb-escaped");
+
+  var running = false, finished = false;
+  var score = 0, errors = 0, totalSquashed = 0, totalEscaped = 0;
+  var startTs = 0, lastSpawn = 0, nextDelay = 600, bug = null, raf = 0, flashT = null;
+
+  function log(html, cls) {
+    var li = document.createElement("li");
+    if (cls) li.className = cls;
+    li.innerHTML = html;
+    logEl.appendChild(li);
+    while (logEl.children.length > 42) logEl.removeChild(logEl.firstChild);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  function resetLog() {
+    logEl.innerHTML = "";
+    log('<span class="l-dim">$ npm run fix-bugs</span>');
+    log('<span class="l-dim">&gt; portfolio@2.0.0 — recruiter build</span>');
+    log('<span class="l-dim">&gt; watching for bugs… <span class="bld">click them before they escape</span></span>');
+  }
+  function hud(now) {
+    var remain = Math.max(0, GAME_MS - (now - startTs));
+    timeEl.textContent = (remain / 1000).toFixed(1);
+    timeEl.classList.toggle("low", remain <= 10000);
+  }
+  function flashMiss() {
+    term.classList.remove("miss-flash");
+    void term.offsetWidth; /* restart animation */
+    term.classList.add("miss-flash");
+    if (flashT) clearTimeout(flashT);
+    flashT = setTimeout(function () { term.classList.remove("miss-flash"); }, 550);
+  }
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function spawnBug(now) {
+    if (bug) return;
+    var w = arena.clientWidth, h = arena.clientHeight;
+    var el = document.createElement("button");
+    el.type = "button"; el.className = "bug-btn";
+    el.setAttribute("aria-label", "Bug! Squash it");
+    el.innerHTML = '<span class="bug-glyph" aria-hidden="true">🐛</span>';
+    el.style.left = rand(9, Math.max(10, w - 9)) + "%";
+    el.style.top = rand(13, Math.max(14, h - 13)) + "%";
+    var born = now, gone = false;
+    el.addEventListener("pointerdown", function (ev) {
+      ev.stopPropagation();
+      if (gone || !running) return;
+      gone = true; bug = null;
+      var ms = Math.round(now - born);
+      score += 1; totalSquashed += 1;
+      sbSquashed.textContent = String(totalSquashed);
+      scoreEl.textContent = String(score);
+      var g = el.querySelector(".bug-glyph");
+      if (g) g.classList.add("bug-squashed");
+      var p = document.createElement("span");
+      p.className = "float-plus"; p.textContent = "+1";
+      p.style.left = el.style.left; p.style.top = el.style.top;
+      arena.appendChild(p);
+      setTimeout(function () { p.remove(); }, 600);
+      setTimeout(function () { el.remove(); }, reduced ? 0 : 300);
+      log('<span class="l-ok">✔ bug squashed</span> <span class="l-dim">in ' + ms + "ms</span>");
+    });
+    arena.appendChild(el);
+    bug = { el: el, born: born, gone: false, markGone: function () { gone = true; } };
+  }
+
+  function missBug(b) {
+    b.markGone();
+    b.el.remove();
+    errors += 1; totalEscaped += 1;
+    sbEscaped.textContent = String(totalEscaped);
+    errEl.textContent = String(errors);
+    flashMiss();
+    log('<span class="l-err">✘ BugError: unhandled exception escaped to production</span>');
+    if (errors >= MAX_ESCAPED) {
+      log('<span class="l-err bld">FATAL: too many escaped bugs — build failed</span>', "l-err");
+      endGame("failed");
+    }
+  }
+
+  function loop(now) {
+    if (!running) return;
+    if (now - startTs >= GAME_MS) { endGame(errors >= MAX_ESCAPED ? "failed" : "passed"); return; }
+    if (!bug && now - lastSpawn >= nextDelay) {
+      spawnBug(now); lastSpawn = now; nextDelay = SPAWN_GAP + Math.random() * 500;
+    }
+    if (bug && now - bug.born >= LIFE_MS) { missBug(bug); bug = null; }
+    hud(now);
+    raf = requestAnimationFrame(loop);
+  }
+
+  function endMsgFor(s, failed) {
+    if (failed) return { t: "BUILD FAILED — too many bugs escaped 💥", c: "var(--red)" };
+    if (s >= 20) return { t: "Build passing! 🎉 " + s + " bugs squashed — hire this reflexes.", c: "var(--green)" };
+    if (s >= 12) return { t: "Build green ✔ " + s + " squashed — CI is proud of you.", c: "var(--green)" };
+    if (s >= 6) return { t: "Build passing… barely 😅 " + s + " bugs survived the sprint.", c: "var(--yellow)" };
+    if (s >= 1) return { t: "Deploy blocked 🚧 " + s + " squashed — the bugs unionized.", c: "var(--orange)" };
+    return { t: "BUILD FAILED: 0 bugs squashed. The bugs have unionized. 🐛", c: "var(--red)" };
+  }
+
+  function endGame(result) {
+    running = false; finished = true;
+    cancelAnimationFrame(raf);
+    if (bug) { bug.markGone(); bug.el.remove(); bug = null; }
+    var failed = result === "failed";
+    var m = endMsgFor(score, failed);
+    endMsg.textContent = m.t; endMsg.style.color = m.c;
+    endStats.innerHTML = "score: <b style='color:var(--yellow)'>" + score + "</b> · escaped: <b style='color:var(--red)'>" + errors + "</b> · accuracy: <b style='color:var(--aqua)'>" + (score + errors > 0 ? Math.round((score / (score + errors)) * 100) : 0) + "%</b>";
+    exitEl.innerHTML = failed ? "<span style='color:var(--red)'>1 — build failed</span>" : "<span class='ok'>0 — build passed</span>";
+    log(failed ? '<span class="l-err bld">npm ERR! exited with code 1</span>' : '<span class="l-ok bld">✨ Done in 30.0s — build passed</span>');
+    ovEnd.style.display = "grid";
+  }
+
+  function startGame() {
+    score = 0; errors = 0;
+    scoreEl.textContent = "0"; errEl.textContent = "0";
+    timeEl.textContent = "30.0"; timeEl.classList.remove("low");
+    ovStart.style.display = "none"; ovEnd.style.display = "none";
+    resetLog();
+    running = true; finished = false;
+    startTs = lastSpawn = performance.now();
+    nextDelay = 600;
+    raf = requestAnimationFrame(loop);
+  }
+
+  arena.addEventListener("pointerdown", function () { /* stray clicks do nothing; bugs stop propagation */ });
+  $("#startBtn").addEventListener("click", startGame);
+  $("#againBtn").addEventListener("click", startGame);
+  document.addEventListener("keydown", function (e) {
+    if ((e.key === "r" || e.key === "R") && (finished || running)) startGame();
+    if (e.key === "Enter" && ovStart.style.display !== "none" && document.getElementById("startBtn") === document.activeElement) startGame();
+  });
+  resetLog();
+})();
+</script>
+</body>
+</html>
